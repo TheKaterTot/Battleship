@@ -1,0 +1,2 @@
+Place your ships on the coordinates.
+Choose where to fire by selecting enemy coordinates.
