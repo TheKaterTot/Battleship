@@ -1,8 +1,4 @@
-require "rubygems"
-gem "mocha"
-require "minitest"
-require "minitest/autorun"
-require "mocha/mini_test"
+require "./test/test_helper"
 require "./lib/human_player"
 require "stringio"
 

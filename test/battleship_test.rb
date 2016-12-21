@@ -1,8 +1,4 @@
-require "rubygems"
-gem "mocha"
-require "minitest"
-require "minitest/autorun"
-require "mocha/mini_test"
+require "./test/test_helper"
 require "./lib/battleship"
 require "stringio"
 
@@ -95,14 +91,5 @@ class BattleshipTest < Minitest::Test
 
       assert_equal "Place your ships on the coordinates.\n", output.gets
     end
-  end
-
-  def test_plays_game
-    @game.player_1.expects :place_ships
-    @game.player_2.expects :place_ships
-    @game.player_1.expects :fire_weapons
-    @game.player_2.expects :fire_weapons
-    @game.play
-
   end
 end

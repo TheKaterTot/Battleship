@@ -8,8 +8,14 @@ class Ship
     @destroyed
   end
 
+  def destroyed
+    if @hit_points == 0
+      @destroyed = true
+    end
+  end
+
   def hit
-    @hit_points - 1
+    @hit_points -= 1
   end
 
 

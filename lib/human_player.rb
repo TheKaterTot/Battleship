@@ -2,30 +2,27 @@ require "./lib/player"
 
 class HumanPlayer < Player
 
-  def place_ships
-    puts "Place your small ship"
-    coordinates = gets.chomp
-    coordinates = coordinates.split(" ")
-    x = coordinates[0]
-    y = coordinates[1]
-    place_small_ship(x, y)
-    puts "Place your large ship"
-    coordinates = gets.chomp
-    coordinates = coordinates.split(" ")
-    x = coordinates[0]
-    y = coordinates[1]
-    place_large_ship(x, y)
-    ships_placed
+  def get_coordinates
+    gets.chomp.split(" ")
   end
 
-  def fire(coordinate)
-    map_coordinate = coordinate.chars
-    if map_coordinate[0][map_coordinate[1]] == "*"
-      puts "Hit!"
-      @shots_fired[map_coordinate[0]][map_coordinate[1]] == "H"
-    else
-      puts "Miss!"
-      @shots_fired[map_coordinate[0]][map_coordinate[1]] == "M"
+  def place_ships
+    until @small_ship_placed
+      puts "Place your small ship"
+      small_first, small_second = get_coordinates
+      @small_ship_placed = @ship_board.place_small_ship(small_first, small_second)
+    end
+    @ship_board.draw_ship_board
+    until @large_ship_placed
+      puts "Place your large ship"
+      large_first, large_second = get_coordinates
+      @large_ship_placed = @ship_board.place_large_ship(large_first, large_second)
+    end
+    @ship_board.draw_ship_board
+  end
 
+  def fire_weapons
+    Message.fire_weapons
+    gets.chomp
   end
 end
