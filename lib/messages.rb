@@ -36,7 +36,7 @@ class Message
     end
 
     def self.ship_overboard
-      puts "Your ship is of the board. Place your ship again."
+      puts "Your ship is off the board. Place your ship again."
       puts ""
     end
 

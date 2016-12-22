@@ -8,18 +8,6 @@ class BoardTest < Minitest::Test
     @board = Board.new
   end
 
-  def with_stdio
-    stdin = $stdin
-    $stdin, input = IO.pipe
-    stdout = $stdout
-    output, $stdout = IO.pipe
-    yield input, output
-    input.close
-    $stdin = stdin
-    output.close
-    $stdout = stdout
-  end
-
   def test_draws_ship_board
       with_stdio do |input, output|
         @board.draw_ship_board
@@ -80,5 +68,11 @@ class BoardTest < Minitest::Test
     @board.place_large_ship("A4", "C4")
 
     assert_equal "$", @board.ship_board[2][4]
+  end
+
+  def test_ship_is_off_board
+    @board.place_small_ship("A4", "A5")
+
+    assert @board.check_if_off_board?("A4", "A5")
   end
 end
