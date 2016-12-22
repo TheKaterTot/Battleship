@@ -36,6 +36,7 @@ class Battleship
   end
 
   def play
+    time = Time.now
     player_1.place_ships
     player_2.place_ships
     until current_player.destroyed?
@@ -49,11 +50,18 @@ class Battleship
         Message.miss(current_player)
         current_player.track_miss(target)
       end
-      current_player.draw_board
+      if current_player.is_a?(ComputerPlayer)
+        result = current_player.overlay(other_player)
+        Board.draw_board(result)
+      else
+        current_player.draw_board
+      end
       current_player.end_turn
       switch_player
     end
+    Message.total_shots(current_player.number_of_shots)
     Message.win(other_player)
+    Message.time(time, Time.now)
   end
 
   def instructions

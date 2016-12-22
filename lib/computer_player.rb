@@ -56,6 +56,7 @@ class ComputerPlayer < Player
         target = target_options
       else
         target_valid = true
+        increases_shots
       end
     end
     Message.report_target(target)

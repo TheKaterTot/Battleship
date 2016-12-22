@@ -34,6 +34,7 @@ class HumanPlayer < Player
         target = gets.chomp
       else
         target_valid = true
+        increases_shots
       end
     end
     target

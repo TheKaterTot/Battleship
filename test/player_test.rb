@@ -31,4 +31,10 @@ class PlayerTest < Minitest::Test
     assert_equal "*", @player.ship_board.find_board_location("A3")
   end
 
+  def test_ship_is_destroyed
+    with_stdio do |input, output|
+
+    end
+  end
+
 end

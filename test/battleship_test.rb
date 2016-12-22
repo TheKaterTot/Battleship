@@ -75,8 +75,8 @@ class BattleshipTest < Minitest::Test
   end
 
   def test_for_two_players
-    assert_equal HumanPlayer, @game.player_1.class
-    assert_equal ComputerPlayer, @game.player_2.class
+    assert_equal HumanPlayer, @game.player_2.class
+    assert_equal ComputerPlayer, @game.player_1.class
   end
 
   def test_alternates_players
@@ -89,7 +89,7 @@ class BattleshipTest < Minitest::Test
     with_stdio do |input, output|
       @game.instructions
 
-      assert_equal "Place your ships on the coordinates.\n", output.gets
+      assert_includes(output.gets, "Place your ships on the coordinates")
     end
   end
 end

@@ -20,14 +20,6 @@ class HumanPlayerTest < Minitest::Test
     $stdout = stdout
   end
 
-  def with_stdin
-    stdin = $stdin
-    $stdin, input = IO.pipe
-    yield input
-    input.close
-    $stdin = stdin
-  end
-
   def test_player_can_place_ships
     with_stdio do |input, ouput|
       input.puts "A1 A2"
@@ -58,10 +50,22 @@ class HumanPlayerTest < Minitest::Test
     with_stdio do |input, output|
       input.puts "A1 A2"
       input.puts "B1 B3"
-      @human_player.place_ships
       input.puts "A2"
+      @human_player.place_ships
+
+      assert @human_player.fire_weapons
+    end
+  end
+
+  def test_counts_shots
+    with_stdio do |input, output|
+      input.puts "A3"
+      input.puts "B2"
+      @human_player.fire_weapons
       @human_player.fire_weapons
     end
-    assert @human_player.fire_weapons
+
+    assert_equal 2, @human_player.number_of_shots
+
   end
 end

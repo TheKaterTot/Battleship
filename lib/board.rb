@@ -17,16 +17,16 @@ class Board
   end
 
   def draw_ship_board
-    puts "==========="
-    @ship_board.each do |row|
-      puts row.join(" ")
-    end
-    puts "==========="
+    Board.draw_board(ship_board)
   end
 
   def draw_shots_fired_board
+    Board.draw_board(shots_fired_board)
+  end
+
+  def self.draw_board(board)
     puts "==========="
-    @shots_fired_board.each do |row|
+    board.each do |row|
       puts row.join(" ")
     end
     puts "==========="
@@ -148,6 +148,23 @@ class Board
   def target_is_repeat?(target)
     target = target.chars
     shots_fired_board[row(target[0])][target[1].to_i] != " "
+  end
+
+  def overlay(other_board)
+    result = []
+    shots_fired_board.each_index do |row|
+      result << []
+      shots_fired_board[row].each_index do |column|
+        tile = shots_fired_board[row][column]
+        ship = other_board.ship_board[row][column]
+        if tile != " "
+          result[row][column] = tile
+        else
+          result[row][column] = ship
+        end
+      end
+    end
+    result
   end
 
 end

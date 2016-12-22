@@ -94,6 +94,20 @@ class Message
       puts "You have made your choice. Live with it. Press enter."
     end
 
+    def self.small_ship_dead
+      puts "The small ship is destroyed!"
+      puts ""
+    end
+
+    def self.large_ship_dead
+      puts "The large ship is destroyed!"
+      puts ""
+    end
+
+    def self.total_shots(number)
+      puts "It took #{number} shots to defeat the enemy."
+    end
+
     def self.win(player)
       if player.is_a?(HumanPlayer)
         puts "The machines will rise. But not today. Bask in your victory."
@@ -102,5 +116,9 @@ class Message
         puts "Accept your defeat, meatwad."
         puts ""
       end
+    end
+
+    def self.time(first, last)
+      puts "This game took #{last - first} seconds."
     end
 end

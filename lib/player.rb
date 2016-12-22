@@ -2,7 +2,7 @@ require "./lib/ship"
 require "./lib/board"
 
 class Player
-  attr_reader :ship_1, :ship_2, :ship_board, :shots_fired_board
+  attr_reader :ship_1, :ship_2, :ship_board, :shots_fired_board, :number_of_shots
   def initialize
     @ship_1 = Ship.new(2)
     @ship_2 = Ship.new(3)
@@ -10,6 +10,11 @@ class Player
     @large_ship_placed = false
     @ship_board = Board.new
     @shots_fired_board = Board.new
+    @number_of_shots = 0
+  end
+
+  def increases_shots
+    @number_of_shots += 1
   end
 
   def place_small_ship(x, y)
@@ -35,11 +40,15 @@ class Player
   def fired_at(coordinate)
     if @ship_board.find_board_location(coordinate) == "*"
       @ship_1.hit
-      @ship_1.destroyed
+      if @ship_1.destroyed?
+        Message.small_ship_dead
+      end
       true
     elsif @ship_board.find_board_location(coordinate) == "$"
       @ship_2.hit
-      @ship_2.destroyed
+      if @ship_2.destroyed?
+        Message.large_ship_dead
+      end
       true
     else
       false
@@ -52,6 +61,10 @@ class Player
 
   def end_turn
 
+  end
+
+  def overlay(other_player)
+    ship_board.overlay(other_player.ship_board)
   end
 
 end
