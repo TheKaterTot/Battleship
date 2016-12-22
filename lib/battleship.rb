@@ -5,8 +5,8 @@ class Battleship
   attr_reader :player_1, :player_2, :current_player
 
   def initialize
-    @player_1 = HumanPlayer.new
-    @player_2 = ComputerPlayer.new
+    @player_1 = ComputerPlayer.new
+    @player_2 = HumanPlayer.new
     @current_player = player_1
   end
 
@@ -38,16 +38,22 @@ class Battleship
   def play
     player_1.place_ships
     player_2.place_ships
-    until current_player.ship_1.destroyed? && current_player.ship_2.destroyed?
+    until current_player.destroyed?
       Message.switch_player(current_player)
+      current_player.draw_board
       target = current_player.fire_weapons
       if other_player.fired_at(target)
-        Message.hit
+        Message.hit(current_player)
+        current_player.track_hit(target)
       else
-        Message.miss
+        Message.miss(current_player)
+        current_player.track_miss(target)
       end
+      current_player.draw_board
+      current_player.end_turn
       switch_player
     end
+    Message.win(other_player)
   end
 
   def instructions

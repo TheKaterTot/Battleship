@@ -76,4 +76,9 @@ class BoardTest < Minitest::Test
     assert_equal " ", @board.ship_board[3][2]
   end
 
+  def test_finds_large_ship_middle
+    @board.place_large_ship("A4", "C4")
+
+    assert_equal "$", @board.ship_board[2][4]
+  end
 end

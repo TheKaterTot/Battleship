@@ -53,4 +53,15 @@ class HumanPlayerTest < Minitest::Test
     assert @human_player.ship_1.destroyed?
     assert @human_player.ship_2.destroyed?
   end
+
+  def test_player_tracks_shots
+    with_stdio do |input, output|
+      input.puts "A1 A2"
+      input.puts "B1 B3"
+      @human_player.place_ships
+      input.puts "A2"
+      @human_player.fire_weapons
+    end
+    assert @human_player.fire_weapons
+  end
 end

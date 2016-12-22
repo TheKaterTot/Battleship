@@ -2,7 +2,7 @@ require "./lib/ship"
 require "./lib/board"
 
 class Player
-  attr_reader :ship_1, :ship_2, :ship_board
+  attr_reader :ship_1, :ship_2, :ship_board, :shots_fired_board
   def initialize
     @ship_1 = Ship.new(2)
     @ship_2 = Ship.new(3)
@@ -20,6 +20,18 @@ class Player
     @ship_board.place_large_ship(x, y)
   end
 
+  def draw_board
+    ship_board.draw_shots_fired_board
+  end
+
+  def track_hit(target)
+    ship_board.track_shots_fired(target, "H")
+  end
+
+  def track_miss(target)
+    ship_board.track_shots_fired(target, "M")
+  end
+
   def fired_at(coordinate)
     if @ship_board.find_board_location(coordinate) == "*"
       @ship_1.hit
@@ -32,6 +44,14 @@ class Player
     else
       false
     end
+  end
+
+  def destroyed?
+    ship_1.destroyed? && ship_2.destroyed?
+  end
+
+  def end_turn
+
   end
 
 end
