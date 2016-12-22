@@ -1,5 +1,7 @@
 require "./test/test_helper"
 require "./lib/messages"
+require "./lib/human_player"
+require "./lib/computer_player"
 require "stringio"
 
 class MessageTest < Minitest::Test

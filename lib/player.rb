@@ -1,5 +1,6 @@
 require "./lib/ship"
 require "./lib/board"
+require "paint"
 
 class Player
   attr_reader :ship_1, :ship_2, :ship_board, :shots_fired_board, :number_of_shots
@@ -30,11 +31,11 @@ class Player
   end
 
   def track_hit(target)
-    ship_board.track_shots_fired(target, "H")
+    ship_board.track_shots_fired(target, Paint["H", :red, :bright])
   end
 
   def track_miss(target)
-    ship_board.track_shots_fired(target, "M")
+    ship_board.track_shots_fired(target, Paint["M", :blue, :bright  ])
   end
 
   def fired_at(coordinate)

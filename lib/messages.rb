@@ -1,10 +1,12 @@
+require "paint"
+
 class Message
     def self.welcome_message
-      puts "Welcome to Battleship"
+      puts Paint["Welcome to Battleship", :red, :bright]
     end
 
     def self.options
-      puts "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
+      puts "Would you like to #{Paint["(p)lay", :green]}, read the #{Paint["(i)nstructions", :blue]}, or #{Paint["(q)uit", :red]}?"
     end
 
     def self.computer_place_ships
